@@ -1,0 +1,56 @@
+<div class="container">
+        <p-table #dt [columns]="cols" [value]="users" [paginator]="true" [rows]="10">
+            <ng-template pTemplate="caption">
+                <div style="text-align: right">        
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>
+                <div style="text-align: left">
+                <p-button (click)= "addUser()" label="Add User"></p-button>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                    <tr>
+                            <th *ngFor="let col of columns">
+                                {{col.header}}
+                            </th>
+                        </tr>
+                <tr>
+                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                        <input *ngSwitchCase="'name'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                        <input *ngSwitchCase="'email'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+                    <td *ngFor="let col of columns" >
+                            <span contenteditable="true" (keyup)="changeValue(rowData[col.field], col.field, $event)" (blur)="updateList(rowData[col.field], rowData,  col.field, $event)" *ngIf="col.field ==='name' && rowData['editable'] === false"><a style="color:blue;" routerLink="/detail/{{rowData[col.field]}}">{{rowData[col.field]}}</a></span>
+                            <input type="date" *ngIf="col.field !=='action' && col.field ==='dob' && rowData['editable'] === true" [(ngModel)] = "rowData[col.field]" (keyup)="changeValue(rowData[col.field], col.field, $event)" (blur)="updateList(rowData[col.field], rowData,  col.field, $event)" >
+                            <input *ngIf="col.field !=='action' && col.field !=='dob' && col.field !=='active' && col.field !=='age' && rowData['editable'] === true" type="text" [(ngModel)] = "rowData[col.field]" (keyup)="changeValue(rowData[col.field], col.field, $event)" (blur)="updateList(rowData[col.field], rowData,  col.field, $event)" >
+                            <select id = "myList" *ngIf="col.field !=='action' &&  col.field ==='active' && rowData['editable'] === true"  [(ngModel)] = "rowData[col.field]" (keyup)="changeValue(rowData[col.field], col.field, $event)" (blur)="updateList(rowData[col.field], rowData,  col.field, $event)">
+                                    <option [ngValue] = true>Active</option>
+                                    <option [ngValue] = false>Inactive</option>
+                                  </select>
+                            <span contenteditable="true" (keyup)="changeValue(rowData[col.field], col.field, $event)" (blur)="updateList(rowData[col.field], rowData,  col.field, $event)" *ngIf="col.field ==='dob' && rowData['editable'] === false"> {{rowData[col.field] | date: 'dd-MMM-yyyy'}}</span>
+                            <span *ngIf="col.field ==='action' ">
+                                    <button type="button" (click)= "viewUser(rowData)" class="btn btn-info">View</button>
+                                    <button type="button"  (click)= "edit(rowData)" class="btn btn-dark">Edit</button>
+                                    <button type="button" (click)= "activateUser(rowData)" class="btn btn-success">Activate</button>
+                                    <button type="button"  (click)= "deactiveUser(rowData)" class="btn btn-danger">Deactivate</button>
+                            </span>
+                            <span contenteditable="true" (keyup)="changeValue(rowData[col.field], col.field, $event)" (blur)="updateList(rowData[col.field], rowData,  col.field, $event)" *ngIf="col.field ==='active' && rowData[col.field] === false && rowData['editable'] === false" [ngClass]="{'error': (rowData[col.field] == false) , 'sucess': (rowData[col.field] == true)}">Inactive </span>
+                            <span contenteditable="true" (keyup)="changeValue(rowData[col.field], col.field, $event)" (blur)="updateList(rowData[col.field], rowData,  col.field, $event)" *ngIf="col.field ==='active' && rowData[col.field] === true && rowData['editable'] === false" [ngClass]="{'error': (rowData[col.field] == false) , 'sucess': (rowData[col.field] == true)}"> Active</span>
+                            <span contenteditable="true" (keyup)="changeValue(rowData[col.field], col.field, $event)" (blur)="updateList(rowData[col.field], rowData,  col.field, $event)" *ngIf="col.field !=='name' && col.field !=='dob' && col.field !=='active' && rowData['editable'] === false" class="td"> {{rowData[col.field]}}</span>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+</div>
+
+<!--below code is for popup  -->
+<div *ngIf="isAddUserClicked" class="overlay">
+    <app-updateuser  (addedUser)="addUserToTable($event)"></app-updateuser>
+</div>
+
+

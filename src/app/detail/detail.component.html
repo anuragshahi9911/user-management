@@ -1,0 +1,11 @@
+<div class="button">
+        <p-button (click)= "goBack()" label="Back"></p-button>
+</div>
+<div class="container">
+<h1>Detail Page</h1> 
+<h4><label>Name : </label> <label>{{user}}</label></h4><br>
+<h4><label>Email : </label> <label>{{dataOfCurrentUser.email}}</label></h4><br>
+<h4><label>Phone : </label> <label>{{dataOfCurrentUser.phone}}</label></h4><br>
+<h4><label>Date of Birth : </label> <label>{{dataOfCurrentUser.dob | date: 'dd-MMM-yyyy'}}</label></h4><br>
+<h4><label>Status : </label> <label>{{dataOfCurrentUser.active | status}}</label></h4>
+</div>

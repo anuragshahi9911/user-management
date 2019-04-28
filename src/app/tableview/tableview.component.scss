@@ -1,0 +1,57 @@
+.error {
+    color: red
+}
+.sucess {
+    color: green
+}
+
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(0,0,0,0.5); /*dim the background*/
+    margin-top: 63px;
+    margin-left: 191px;
+    margin-right: 0px;
+    right: 0px;
+    height: 597px;
+    width: 1139px;
+    background-color: #fbfafaf7;
+   
+  }
+.container {
+    position: relative;
+}
+.container{
+    min-height: 100%;
+    overflow:visible;
+    position   : absolute;
+    top        : 0;
+    left       : 0;
+    width      : 100%;
+    height     : 100%;
+    background : #000;
+    opacity    : 0.9;
+    filter     : alpha(opacity=60);
+    z-index    : 5;
+    
+  }
+  .td {
+    box-sizing: border-box;
+    word-break: break-word;
+}
+.view-button {
+    color: aqua;
+}
+.edit-button {
+    color: beige;
+}
+.activate-button {
+    color: green;
+}
+.deactivate-button {
+    color: red;
+}

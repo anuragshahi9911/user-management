@@ -1,0 +1,32 @@
+.form-control {
+    margin-left: 40px;
+    width: 40%;
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-left: 40px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+.form-group .date-picker {
+    margin: 0;
+    outline: medium none;
+    border-radius: 6px;
+    padding: .25em;
+    font-weight: normal;
+    margin-left: 40px;
+    width: 456px;
+    height: 33px;
+}
+.invalid-feedback {
+    display: inline-block;
+    max-width: 100%;
+    margin-left: 40px;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: red;
+}
+.submit {
+    margin-left: 40px;
+}
